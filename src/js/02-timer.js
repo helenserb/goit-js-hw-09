@@ -1,6 +1,9 @@
 // Описаний в документації
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import Notiflix from 'notiflix';
+
+
 
 const startBtn = document.querySelector('button[data-start]');
 const daysTimer = document.querySelector('span[data-days]');
@@ -16,11 +19,14 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
     onClose(selectedDates) {
-        startBtn.disabled = false;
+
         chosenDate = selectedDates[0].getTime();
         if (chosenDate - Date.now() < 0) {
-            alert('Please choose a date in the future');
-        } return chosenDate; 
+          Notiflix.Notify.failure('Please choose a date in the future');
+          return;
+      }
+      startBtn.disabled = false;
+      return chosenDate; 
         
   },
 };
